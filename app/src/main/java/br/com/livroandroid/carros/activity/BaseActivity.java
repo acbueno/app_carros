@@ -1,6 +1,7 @@
 package br.com.livroandroid.carros.activity;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import br.com.livroandroid.carros.R;
+import br.com.livroandroid.carros.fragments.CarrosFragment;
+import br.com.livroandroid.carros.fragments.SiteLivroFragment;
 import livroandroid.lib.utils.NavDrawerUtil;
 
 /**
@@ -74,19 +77,19 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity {
         switch (menuItem.getItemId()) {
 
             case R.id.nav_item_carros_todos:
-                toast("Clicou em carros");
+                replaceFragramet(CarrosFragment.newInstance(R.string.carros));
                 break;
             case R.id.nav_item_carros_classicos:
-                toast("Clicou em carros classicos");
+               replaceFragramet(CarrosFragment.newInstance(R.string.classicos));
                 break;
             case R.id.nav_item_carros_esportivos:
-                toast("Clicou em carros esportivos");
+                replaceFragramet(CarrosFragment.newInstance(R.string.esportivos));
                 break;
             case R.id.nav_item_carros_luxo:
-                toast("Clicou em carros luxo");
+                replaceFragramet(CarrosFragment.newInstance(R.string.luxo));
                 break;
             case R.id.nav_item_site_livro:
-                snack(drawerLayout, "Clicou em site livro");
+                replaceFragramet(new SiteLivroFragment());
                 break;
             case R.id.nav_item_settings:
                 toast("Clicou em configurações");
@@ -118,6 +121,10 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity {
         if (drawerLayout != null) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
+    }
+
+    protected void replaceFragramet(Fragment frag){
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, frag, "TAG").commit();
     }
 
 
